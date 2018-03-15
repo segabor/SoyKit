@@ -1,3 +1,9 @@
+//
+//  ContentKind.swift
+//  Soy
+//
+//  Created by Gábor Sebestyén on 2018. 03. 15..
+//
 
 /** A kind of textual content. */
 public enum ContentKind {
