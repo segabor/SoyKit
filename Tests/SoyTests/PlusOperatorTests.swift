@@ -8,7 +8,7 @@
 import XCTest
 @testable import Soy
 
-class AddOperatorTests: XCTestCase {
+class PlusOperatorTests: XCTestCase {
     func testAddToNullValue() {
         let leftValue: SoyValue = nil
 

@@ -1,7 +1,7 @@
 import XCTest
 @testable import Soy
 
-class SanitizersTests: XCTestCase {
+class SanitizerTests: XCTestCase {
     func testTagWhitelisting() {
         XCTAssertTrue(cleanHtml("<b>Hello, World!</b>") == "<b>Hello, World!</b>")
         XCTAssertTrue(cleanHtml("<b onclick='evil()'>Hello, World!</b>") == "<b>Hello, World!</b>")
