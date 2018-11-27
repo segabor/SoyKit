@@ -1,6 +1,7 @@
 import XCTest
 @testable import SoyTests
 
-XCTMain([
-    testCase(SanitizerTests.allTests),
-])
+var tests = [XCTestCaseEntry]()
+tests += SanitizerTests.allTests()
+tests += PlusOperatorTests.allTests()
+XCTMain(tests)
