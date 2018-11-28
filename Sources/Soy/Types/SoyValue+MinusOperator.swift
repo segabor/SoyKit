@@ -1,12 +1,12 @@
 //
-//  SoyValue+PlusOperator.swift
+//  SoyValue+MinusOperator.swift
 //  Soy
 //
-//  Created by Sebestyén Gábor on 2018. 11. 26..
+//  Created by Sebestyén Gábor on 2018. 11. 28..
 //
 
 extension SoyValue {
-    public static func + (lhs: SoyValue, rhs: SoyValue) -> SoyValue {
+    public static func - (lhs: SoyValue, rhs: SoyValue) -> SoyValue {
         
         switch lhs {
         case .null:
