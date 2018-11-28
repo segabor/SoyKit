@@ -15,7 +15,7 @@ public func cleanHtml(_ value: Sanitizable, _ safeTags: [String] = SAFE_TAG_WHIT
     }
 
     // TODO: implement
-    
+
     return SanitizedContent(safeContent: value.content)
 }
 

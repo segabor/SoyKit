@@ -7,24 +7,23 @@
 
 import Foundation
 
-public struct SanitizedContent: Sanitizable, Equatable, CustomStringConvertible {
-    
-    public let content: String
-    
-    public var safe: Bool {
-        return true
-    }
+public struct SanitizedContent: Sanitizable, Equatable {
 
-    public init(safeContent content: String) {
+    public let content: String
+
+    public private(set) var safe: Bool = false
+
+    public init(unsafeContent content: String) {
         self.content = content
     }
 
-    // Equatable
-    public static func ==(left: SanitizedContent, right: SanitizedContent) -> Bool {
-        return left.content == right.content
+    internal init(safeContent content: String) {
+        self.content = content
+        self.safe = true
     }
-    
-    // CustomStringConvertible
+}
+
+extension SanitizedContent: CustomStringConvertible {
     public var description: String {
         return content
     }
