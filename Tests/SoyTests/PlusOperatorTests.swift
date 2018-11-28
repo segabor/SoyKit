@@ -1,5 +1,5 @@
 //
-//  AddOperatorTests.swift
+//  PlusOperatorTests.swift
 //  Soy
 //
 //  Created by Sebestyén Gábor on 2018. 11. 26..
