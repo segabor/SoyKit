@@ -95,7 +95,12 @@ extension SoyValue {
             } else {
                 return .double(.nan)
             }
-        case .array(_), .map(_):
+        case .array(let a):
+            return a.isEmpty
+                ? .integer(0) * rhs
+                : .double(.nan)
+
+        case .map(_):
             return .double(.nan)
         }
     }
