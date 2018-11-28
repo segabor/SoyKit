@@ -65,3 +65,19 @@ extension SoyValue: ExpressibleByDictionaryLiteral {
     }
 }
 
+
+
+
+//
+// Utility functions
+//
+
+public func adjusted(_ value: SoyValue) -> SoyValue {
+    guard case let .double(d) = value,
+        !d.isNaN,
+        !d.isInfinite,
+        d.rounded(.towardZero) == d
+    else { return value }
+
+    return .integer(Int(d))
+}
