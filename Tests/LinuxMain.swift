@@ -1,6 +1,8 @@
 import XCTest
+
 import SoyTests
 
 var tests = [XCTestCaseEntry]()
-tests += SoyTests.allTests()
+tests += SoyTests.__allTests()
+
 XCTMain(tests)

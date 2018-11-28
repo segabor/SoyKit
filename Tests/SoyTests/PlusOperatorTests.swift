@@ -167,16 +167,4 @@ class PlusOperatorTests: XCTestCase {
         XCTAssertEqual( leftValue + ["korte", 2, 4.14], .string("[object Object]korte,2,4.14") )
         XCTAssertEqual( leftValue + ["string": "alma", "int": 123], .string("[object Object][object Object]") )
     }
-
-    static var allTests = [
-        ("testAddToNullValue", testAddToNullValue),
-        ("testAddToBoolValue", testAddToBoolValue),
-        ("testAddToIntegerValue", testAddToIntegerValue ),
-        ("testAddToDoubleValue", testAddToDoubleValue),
-        ("testAddToNaNValue", testAddToNaNValue),
-        ("testAddToInfinityValue", testAddToInfinityValue),
-        ("testAddToStringValue", testAddToStringValue),
-        ("testAddToArrayValue", testAddToArrayValue),
-        ("testAddToMapValue", testAddToMapValue)
-    ]
 }

@@ -49,11 +49,4 @@ class SanitizerTests: XCTestCase {
             cleanHtml(ordainAsSafe("<script>notevil()</script>", ContentKind.HTML))
             == ordainAsSafe("<script>notevil()</script>", ContentKind.HTML))
     }
-
-
-
-    static var allTests = [
-        ("testTagWhitelisting", testTagWhitelisting),
-        ("testCleanHtml", testCleanHtml)
-    ]
 }
