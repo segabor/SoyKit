@@ -79,7 +79,7 @@ class MinusOperatorTests: XCTestCase {
         XCTAssertEqual( leftValue - .bool(false), .double(3.14) )
 
         XCTAssertEqual( leftValue - .integer(123), .double(-119.86) )
-        XCTAssertEqual( leftValue - .double(3.14), .double(0) )
+        XCTAssertEqual( leftValue - .double(3.14), .integer(0) )
         if case .double(let value) = leftValue - .double(Double.nan), value.isNaN {} else { XCTFail() }
         XCTAssertEqual( leftValue - .double(Double.infinity), .double(-.infinity) )
 
