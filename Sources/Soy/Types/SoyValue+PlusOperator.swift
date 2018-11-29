@@ -6,11 +6,11 @@
 //
 
 extension SoyValue {
-    /**
-     * You can use the operator + for either adding numbers or concatenating strings.
-     * When one of the two operands is a string, the other value is coerced to a string.
-     * All primitive values have string representations.
-     */
+    //
+    // You can use the operator + for either adding numbers or concatenating strings.
+    // When one of the two operands is a string, the other value is coerced to a string.
+    // All primitive values have string representations.
+    //
     public static func + (lhs: SoyValue, rhs: SoyValue) -> SoyValue {
         if let lhn = lhs.coerceToNumber, let rhn = rhs.coerceToNumber {
             switch (lhn, rhn) {

@@ -8,6 +8,10 @@
 import Foundation
 
 extension SoyValue {
+    // The / operator performs floating point division.
+    // To divide two integers to get an integer,
+    // use the floor function or a similar function
+    // in tandem with the division operator.
     public static func / (lhs: SoyValue, rhs: SoyValue) -> SoyValue {
         if let lhn = lhs.coerceToNumber, let rhn = rhs.coerceToNumber {
             switch (lhn, rhn) {

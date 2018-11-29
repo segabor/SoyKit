@@ -76,15 +76,15 @@ extension SoyValue: Coercible {
         }
     }
 
-    /**
-      * Each primitive type has exactly one falsy value:
-      * - null is falsy for null, false is falsy for booleans,
-      * -  0 is falsy for integers,
-      * -  0.0 is falsy for floats, and
-      * - '' (empty string) is falsy for strings.
-      * All other primitive values are truthy.
-      * Maps and lists are always truthy even if they're empty. Undefined data keys are falsy.
-      **/
+    //
+    // Each primitive type has exactly one falsy value:
+    // - null is falsy for null, false is falsy for booleans,
+    // -  0 is falsy for integers,
+    // -  0.0 is falsy for floats, and
+    // - '' (empty string) is falsy for strings.
+    // All other primitive values are truthy.
+    // Maps and lists are always truthy even if they're empty. Undefined data keys are falsy.
+    //
     public var coerceToBool: Bool {
         switch self {
         case .null:
