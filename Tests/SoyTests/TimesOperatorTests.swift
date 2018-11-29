@@ -13,16 +13,16 @@ class TimesOperatorTests: XCTestCase {
         let leftValue: SoyValue = nil
 
         XCTAssertEqual( leftValue * .null, SoyValue.integer(0) )
-        XCTAssertEqual( leftValue * .bool(true), SoyValue.integer(0) )
-        XCTAssertEqual( leftValue * .bool(false), SoyValue.integer(0) )
+        XCTAssertEqual( leftValue * .bool(true), .integer(0) )
+        XCTAssertEqual( leftValue * .bool(false), .integer(0) )
 
-        XCTAssertEqual( leftValue * .integer(123), SoyValue.integer(0) )
-        XCTAssertEqual( leftValue * .double(3.14), SoyValue.integer(0) )
+        XCTAssertEqual( leftValue * .integer(123), .integer(0) )
+        XCTAssertEqual( leftValue * .double(3.14), .double(0) )
         if case .double(let value) = leftValue * .double(Double.nan), value.isNaN {} else { XCTFail() }
         if case .double(let value) = leftValue * .double(Double.infinity), value.isNaN {} else { XCTFail() }
     
         XCTAssertEqual( leftValue * .string("123"), .integer(0))
-        XCTAssertEqual( leftValue * .string("3.14"), .integer(0))
+        XCTAssertEqual( leftValue * .string("3.14"), .double(0))
         if case .double(let value) = leftValue * .string("alma"), value.isNaN {} else { XCTFail() }
 
         if case .double(let value) = leftValue * ["alma", 1, 3.14], value.isNaN {} else { XCTFail() }
@@ -55,12 +55,12 @@ class TimesOperatorTests: XCTestCase {
         XCTAssertEqual( leftValue * .bool(false), .integer(0) )
 
         XCTAssertEqual( leftValue * .integer(123), .integer(0) )
-        XCTAssertEqual( leftValue * .double(3.14), .integer(0) )
+        XCTAssertEqual( leftValue * .double(3.14), .double(0) )
         if case .double(let value) = leftValue * .double(.nan), value.isNaN {} else { XCTFail() }
         if case .double(let value) = leftValue * .double(.infinity), value.isNaN {} else { XCTFail() }
 
         XCTAssertEqual( leftValue * .string("123"), .integer(0))
-        XCTAssertEqual( leftValue * .string("3.14"), .integer(0))
+        XCTAssertEqual( leftValue * .string("3.14"), .double(0))
         if case .double(let value) = leftValue * .string("alma"), value.isNaN {} else { XCTFail() }
 
         if case .double(let value) = leftValue * ["alma", 1, 3.14], value.isNaN {} else { XCTFail() }
@@ -90,9 +90,9 @@ class TimesOperatorTests: XCTestCase {
     func testMultiplyWithDoubleValue() {
         let leftValue: SoyValue = 3.14
         
-        XCTAssertEqual( leftValue * .null, .integer(0) )
+        XCTAssertEqual( leftValue * .null, .double(0) )
         XCTAssertEqual( leftValue * .bool(true), .double(3.14) )
-        XCTAssertEqual( leftValue * .bool(false), .integer(0) )
+        XCTAssertEqual( leftValue * .bool(false), .double(0) )
 
         XCTAssertEqual( leftValue * .integer(123), .double(3.14*123) )
         XCTAssertEqual( leftValue * .double(3.14), .double(3.14*3.14) )
@@ -181,12 +181,12 @@ class TimesOperatorTests: XCTestCase {
         XCTAssertEqual( leftValue * .bool(false), .integer(0) )
 
         XCTAssertEqual( leftValue * .integer(123), .integer(0) )
-        XCTAssertEqual( leftValue * .double(3.14), .integer(0) )
+        XCTAssertEqual( leftValue * .double(3.14), .double(0) )
         if case .double(let value) = leftValue * .double(.nan), value.isNaN {} else { XCTFail() }
         if case .double(let value) = leftValue * .double(.infinity), value.isNaN {} else { XCTFail() }
 
         XCTAssertEqual( leftValue * .string("123"), .integer(0))
-        XCTAssertEqual( leftValue * .string("3.14"), .integer(0))
+        XCTAssertEqual( leftValue * .string("3.14"), .double(0))
         if case .double(let value) = leftValue * .string("alma"), value.isNaN {} else { XCTFail() }
 
         if case .double(let value) = leftValue * ["alma", 1, 3.14], value.isNaN {} else { XCTFail() }

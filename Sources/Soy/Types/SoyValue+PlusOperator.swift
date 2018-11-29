@@ -6,70 +6,34 @@
 //
 
 extension SoyValue {
+    /**
+     * You can use the operator + for either adding numbers or concatenating strings.
+     * When one of the two operands is a string, the other value is coerced to a string.
+     * All primitive values have string representations.
+     */
     public static func + (lhs: SoyValue, rhs: SoyValue) -> SoyValue {
-        return adjusted(doAdd(lhs: lhs, rhs: rhs))
-    }
-}
+        if let lhn = lhs.coerceToNumber, let rhn = rhs.coerceToNumber {
+            switch (lhn, rhn) {
+            case (.int(let ln), .int(let rn)):
+                return .integer(ln + rn)
+            case (.double(let ld), .int(let rn)):
+                return .double(ld + Double(rn))
+            case (.int(let ln), .double(let rd)):
+                return .double(Double(ln) + rd)
+            case (.double(let ld), .double(let rd)):
+                return .double(ld + rd)
+            }
+        }
 
-private func doAdd(lhs: SoyValue, rhs: SoyValue) -> SoyValue {
-    switch lhs {
-    case .null:
-        switch rhs {
-        case .null, .bool(_), .integer(_):
-            return .integer(lhs.coerceToInteger + rhs.coerceToInteger)
-        case .double(_):
-            return rhs
+        switch (lhs, rhs) {
+        case (.string(let s), _):
+            return .string(s + rhs.coerceToString)
+        case (_, .string(let s)):
+            return .string(lhs.coerceToString + s)
+        case (.array(let a1), .array(let a2)):
+            return .array(a1 + a2)
         default:
-            return .string(lhs.coerceToString + rhs.coerceToString)
-        }
-
-    case .bool(_):
-        let stringLhs = lhs.coerceToString
-        switch rhs {
-        case .null, .bool(_), .integer(_):
-            return .integer(lhs.coerceToInteger + rhs.coerceToInteger)
-        case .double(let f):
-            return f.isNaN || f.isInfinite
-                ? .string(stringLhs + rhs.coerceToString)
-                : .double(Double(lhs.coerceToInteger) + f)
-        case .string(_), .array(_), .map(_):
-            return .string(stringLhs + rhs.coerceToString)
-        }
-
-    case .integer(let n):
-        switch rhs {
-        case .null, .bool, .integer:
-            return .integer(n + rhs.coerceToInteger)
-        case .double(let f):
-            return .double(Double(n) + f)
-        case .string(_), .array(_), .map(_):
-            return .string(lhs.coerceToString + rhs.coerceToString)
-        }
-
-    case .double(let d):
-        switch rhs {
-        case .null, .bool, .integer:
-            return d.isNaN || d.isInfinite ? lhs : .double(d + Double(rhs.coerceToInteger))
-        case .double(let f):
-            return .double(d + f)
-        case .string(_), .array(_), .map(_):
-            return .string(lhs.coerceToString + rhs.coerceToString)
-        }
-
-    // FIXME: add 'numeric' string case
-    // FIXME: add empty string case
-    case .string(let ls):
-        return .string(ls + rhs.coerceToString)
-
-    case .array(let array):
-        switch rhs {
-        case .null, .bool(_), .integer(_), .double(_), .string(_), .map(_):
-            return .string(lhs.coerceToString + rhs.coerceToString)
-        case .array(let otherArray):
-            return .array(array + otherArray)
-        }
-
-    case .map(_):
-        return .string(lhs.coerceToString + rhs.coerceToString)
+            return .string( lhs.coerceToString + rhs.coerceToString )
+        }        
     }
 }

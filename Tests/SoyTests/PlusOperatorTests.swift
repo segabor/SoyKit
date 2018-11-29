@@ -28,28 +28,28 @@ class PlusOperatorTests: XCTestCase {
     func testAddToBoolValue() {
         var leftValue: SoyValue = true
 
-        XCTAssertEqual( SoyValue.integer(leftValue.coerceToInteger + SoyValue.null.coerceToInteger), SoyValue.integer(1) )
+        XCTAssertEqual( leftValue + .null, .integer(1) )
         XCTAssertEqual( leftValue + .bool(true), .integer(2) )
         XCTAssertEqual( leftValue + .bool(false), .integer(1) )
         
         XCTAssertEqual( leftValue + .integer(123), .integer(124) )
         XCTAssertEqual( leftValue + .double(3.14), .double(4.140000000000001) )
-        XCTAssertEqual( leftValue + .double(Double.nan), .string("trueNaN") )
-        XCTAssertEqual( leftValue + .double(Double.infinity), .string("trueInfinity") )
-        
+        if case .double(let value) = leftValue + .double(.nan), value.isNaN {} else { XCTFail() }
+        XCTAssertEqual( leftValue + .double(.infinity), .double(.infinity) )
+
         XCTAssertEqual( leftValue + ["alma", 1, 3.14], .string("truealma,1,3.14") )
         XCTAssertEqual( leftValue + ["string": "alma", "int": 123], .string("true[object Object]") )
 
         leftValue = false
 
-        XCTAssertEqual( SoyValue.integer(leftValue.coerceToInteger + SoyValue.null.coerceToInteger), SoyValue.integer(0) )
+        XCTAssertEqual( leftValue + .null, .integer(0) )
         XCTAssertEqual( leftValue + .bool(true), .integer(1) )
         XCTAssertEqual( leftValue + .bool(false), .integer(0) )
 
         XCTAssertEqual( leftValue + .integer(123), .integer(123) )
         XCTAssertEqual( leftValue + .double(3.14), .double(3.14) )
-        XCTAssertEqual( leftValue + .double(Double.nan), .string("falseNaN") )
-        XCTAssertEqual( leftValue + .double(Double.infinity), .string("falseInfinity") )
+        if case .double(let value) = leftValue + .double(.nan), value.isNaN {} else { XCTFail() }
+        XCTAssertEqual( leftValue + .double(.infinity), .double(.infinity) )
         
         XCTAssertEqual( leftValue + ["alma", 1, 3.14], .string("falsealma,1,3.14") )
         XCTAssertEqual( leftValue + ["string": "alma", "int": 123], .string("false[object Object]") )

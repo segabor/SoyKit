@@ -28,29 +28,29 @@ class MinusOperatorTests: XCTestCase {
     func testSubstractFromBoolValue() {
         var leftValue: SoyValue = true
 
-        XCTAssertEqual( SoyValue.integer(leftValue.coerceToInteger - SoyValue.null.coerceToInteger), SoyValue.integer(1) )
+        XCTAssertEqual( leftValue - .null, .integer(1) )
         XCTAssertEqual( leftValue - .bool(true), .integer(0) )
         XCTAssertEqual( leftValue - .bool(false), .integer(1) )
 
         XCTAssertEqual( leftValue - .integer(123), .integer(-122) )
         XCTAssertEqual( leftValue - .double(3.14), .double(-2.14) )
-        XCTAssertEqual( leftValue - .double(Double.nan), .string("trueNaN") )
-        XCTAssertEqual( leftValue - .double(Double.infinity), .string("trueInfinity") )
+        if case .double(let value) = leftValue - .double(.nan), value.isNaN {} else { XCTFail() }
+        XCTAssertEqual( leftValue - .double(Double.infinity), .double(-.infinity) )
 
         if case .double(let value) = leftValue - ["alma", 1, 3.14], value.isNaN {} else { XCTFail() }
         if case .double(let value) = leftValue - ["string": "alma", "int": 123], value.isNaN {} else { XCTFail() }
 
         leftValue = false
 
-        XCTAssertEqual( SoyValue.integer(leftValue.coerceToInteger - SoyValue.null.coerceToInteger), SoyValue.integer(0) )
+        XCTAssertEqual( leftValue - .null, .integer(0) )
         XCTAssertEqual( leftValue - .bool(true), .integer(-1) )
         XCTAssertEqual( leftValue - .bool(false), .integer(0) )
 
         XCTAssertEqual( leftValue - .integer(123), .integer(-123) )
         XCTAssertEqual( leftValue - .double(3.14), .double(-3.14) )
-        XCTAssertEqual( leftValue - .double(Double.nan), .string("falseNaN") )
-        XCTAssertEqual( leftValue - .double(Double.infinity), .string("falseInfinity") )
-        
+        if case .double(let value) = leftValue - .double(.nan), value.isNaN {} else { XCTFail() }
+        XCTAssertEqual( leftValue - .double(Double.infinity), .double(-.infinity) )
+
         if case .double(let value) = leftValue - ["alma", 1, 3.14], value.isNaN {} else { XCTFail() }
         if case .double(let value) = leftValue - ["string": "alma", "int": 123], value.isNaN {} else { XCTFail() }
     }
@@ -79,7 +79,7 @@ class MinusOperatorTests: XCTestCase {
         XCTAssertEqual( leftValue - .bool(false), .double(3.14) )
 
         XCTAssertEqual( leftValue - .integer(123), .double(-119.86) )
-        XCTAssertEqual( leftValue - .double(3.14), .integer(0) )
+        XCTAssertEqual( leftValue - .double(3.14), .double(0) )
         if case .double(let value) = leftValue - .double(Double.nan), value.isNaN {} else { XCTFail() }
         XCTAssertEqual( leftValue - .double(Double.infinity), .double(-.infinity) )
 
@@ -96,8 +96,8 @@ class MinusOperatorTests: XCTestCase {
 
         if case .double(let value) = leftValue - .integer(123), value.isNaN {} else { XCTFail() }
         if case .double(let value) = leftValue - .double(3.14), value.isNaN {} else { XCTFail() }
-        if case .double(let value) = leftValue - .double(Double.nan), value.isNaN {} else { XCTFail() }
-        if case .double(let value) = leftValue - .double(Double.infinity), value.isNaN {} else { XCTFail() }
+        if case .double(let value) = leftValue - .double(.nan), value.isNaN {} else { XCTFail() }
+        if case .double(let value) = leftValue - .double(.infinity), value.isNaN {} else { XCTFail() }
 
         if case .double(let value) = leftValue - ["alma", 1, 3.14], value.isNaN {} else { XCTFail() }
         if case .double(let value) = leftValue - ["string": "alma", "int": 123], value.isNaN {} else { XCTFail() }
@@ -113,8 +113,8 @@ class MinusOperatorTests: XCTestCase {
         
         XCTAssertEqual( leftValue - .integer(123), expectedValue )
         XCTAssertEqual( leftValue - .double(3.14), expectedValue )
-        if case .double(let value) = leftValue - .double(Double.nan), value.isNaN {} else { XCTFail() }
-        if case .double(let value) = leftValue - .double(Double.infinity), value.isNaN {} else { XCTFail() }
+        if case .double(let value) = leftValue - .double(.nan), value.isNaN {} else { XCTFail() }
+        if case .double(let value) = leftValue - .double(.infinity), value.isNaN {} else { XCTFail() }
 
         if case .double(let value) = leftValue - ["alma", 1, 3.14], value.isNaN {} else { XCTFail() }
         if case .double(let value) = leftValue - ["string": "alma", "int": 123], value.isNaN {} else { XCTFail() }
@@ -128,8 +128,8 @@ class MinusOperatorTests: XCTestCase {
 
         XCTAssertEqual( leftValue - .integer(123), expectedValue )
         XCTAssertEqual( leftValue - .double(3.14), expectedValue )
-        if case .double(let value) = leftValue - .double(Double.nan), value.isNaN {} else { XCTFail() }
-        XCTAssertEqual( leftValue - .double(Double.infinity), .double(-.infinity) )
+        if case .double(let value) = leftValue - .double(.nan), value.isNaN {} else { XCTFail() }
+        XCTAssertEqual( leftValue - .double(.infinity), .double(-.infinity) )
 
         if case .double(let value) = leftValue - ["alma", 1, 3.14], value.isNaN {} else { XCTFail() }
         if case .double(let value) = leftValue - ["string": "alma", "int": 123], value.isNaN {} else { XCTFail() }

@@ -7,60 +7,19 @@
 
 extension SoyValue {
     public static func - (lhs: SoyValue, rhs: SoyValue) -> SoyValue {
-        return adjusted(doSubstract(lhs: lhs, rhs: rhs))
-    }
-}
-
-private func doSubstract(lhs: SoyValue, rhs: SoyValue) -> SoyValue {
-    switch lhs {
-    case .null:
-        switch rhs {
-        case .null, .bool(_), .integer(_):
-            return .integer(lhs.coerceToInteger - rhs.coerceToInteger)
-        case .double(let d):
-            return d.isNaN ? rhs : .double(-d)
-        default:
-            return .double(.nan)
+        if let lhn = lhs.coerceToNumber, let rhn = rhs.coerceToNumber {
+            switch (lhn, rhn) {
+            case (.int(let ln), .int(let rn)):
+                return .integer(ln - rn)
+            case (.double(let ld), .int(let rn)):
+                return .double(ld - Double(rn))
+            case (.int(let ln), .double(let rd)):
+                return .double(Double(ln) - rd)
+            case (.double(let ld), .double(let rd)):
+                return .double(ld - rd)
+            }
         }
 
-    case .bool(_):
-        let stringLhs = lhs.coerceToString
-        switch rhs {
-        case .null, .bool(_), .integer(_):
-            return .integer(lhs.coerceToInteger - rhs.coerceToInteger)
-        case .double(let f):
-            return f.isNaN || f.isInfinite
-                ? .string(stringLhs + rhs.coerceToString)
-                : .double(Double(lhs.coerceToInteger) - f)
-        case .string(_), .array(_), .map(_):
-            return .double(.nan)
-        }
-
-    case .integer(let n):
-        switch rhs {
-        case .null, .bool, .integer:
-            return .integer(n - rhs.coerceToInteger)
-        case .double(let f):
-            return .double(Double(n) - f)
-        case .string(_), .array(_), .map(_):
-            return .double(.nan)
-        }
-
-    case .double(let d):
-        switch rhs {
-        case .null, .bool, .integer:
-            return d.isNaN ? lhs : .double(d - Double(rhs.coerceToInteger))
-        case .double(let f):
-            return .double(d - f)
-        case .string(_), .array(_), .map(_):
-            return .double(.nan)
-        }
-
-    // FIXME: add 'numeric' string case
-    // FIXME: add empty string case
-    case .string(_), .array(_), .map(_):
         return .double(.nan)
     }
 }
-
-

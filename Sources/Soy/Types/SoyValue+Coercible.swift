@@ -7,14 +7,21 @@
 
 extension SoyValue {
     static let NULL_TO_STRING: String = "null"
+    static let TRUE_TO_STRING: String = "true"
+    static let FALSE_TO_STRING: String = "false"
     static let NAN_TO_STRING: String = "NaN"
     static let INF_TO_STRING: String = "Infinity"
 }
 
+public enum Number {
+    case int(Int)
+    case double(Double)
+}
 
 public protocol Coercible {
     var coerceToString: String {get}
-    var coerceToInteger: Int {get}
+    var coerceToNumber: Number? {get}
+    var coerceToBool: Bool {get}
 }
 
 extension SoyValue: Coercible {
@@ -23,7 +30,7 @@ extension SoyValue: Coercible {
         case .null:
             return SoyValue.NULL_TO_STRING
         case .bool(let flag):
-            return flag ? "true" : "false"
+            return flag ? SoyValue.TRUE_TO_STRING : SoyValue.FALSE_TO_STRING
         case .integer(let n):
             return String(n)
         case .double(let f):
@@ -38,28 +45,60 @@ extension SoyValue: Coercible {
             return s
         case .array(let a):
             return a.map{$0.coerceToString}.joined(separator: ",")
-        case .map(_):
+        case .map:
             return "[object Object]"
         }
     }
 
-    public var coerceToInteger: Int {
+    public var coerceToNumber: Number? {
         switch self {
         case .null:
-            return 0
+            return .int(0)
         case .bool(let flag):
-            return flag ? 1 : 0
+            return flag ? .int(1) : .int(0)
         case .integer(let n):
-            return n
-        case .double(let f):
-            return Int(f)
+            return .int(n)
+        case .double(let d):
+            return .double(d)
         case .string(let s):
-            if let coerced = Int(s) {
-                return coerced
+            if let n = Int(s) {
+                return .int(n)
             }
-            fatalError("String \(s) cannot be converted to number")
+            if let d = Double(s) {
+                return .double(d)
+            } else {
+                return nil
+            }
+        case .array(let a):
+            return a.isEmpty ? .int(0) : nil
+        case .map:
+            return nil
+        }
+    }
+
+    /**
+      * Each primitive type has exactly one falsy value:
+      * - null is falsy for null, false is falsy for booleans,
+      * -  0 is falsy for integers,
+      * -  0.0 is falsy for floats, and
+      * - '' (empty string) is falsy for strings.
+      * All other primitive values are truthy.
+      * Maps and lists are always truthy even if they're empty. Undefined data keys are falsy.
+      **/
+    public var coerceToBool: Bool {
+        switch self {
+        case .null:
+            return false
+        case .bool(let flag):
+            return flag
+        case .integer(let n):
+            return n != 0
+        case .double(let d):
+            return !d.isZero
+        case .string(let s):
+            return !s.isEmpty
         default:
-            fatalError("Unimplemented numeric conversion for \(self)")
+            return true
         }
     }
 }
