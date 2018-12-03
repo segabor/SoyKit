@@ -148,7 +148,7 @@ class PlusOperatorTests: XCTestCase {
         XCTAssertEqual( leftValue + .double(Double.nan), .string("alma,1,3.14NaN") )
         XCTAssertEqual( leftValue + .double(Double.infinity), .string("alma,1,3.14Infinity") )
 
-        XCTAssertEqual( leftValue + ["korte", 2, 4.14], .array(["alma", 1 , 3.14 , "korte", 2, 4.14]) )
+        XCTAssertEqual( leftValue + ["korte", 2, 4.14], .string("alma,1,3.14korte,2,4.14") )
         XCTAssertEqual( leftValue + ["string": "alma", "int": 123], .string("alma,1,3.14[object Object]") )
     }
 

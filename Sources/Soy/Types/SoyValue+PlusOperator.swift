@@ -12,6 +12,15 @@ extension SoyValue {
     // All primitive values have string representations.
     //
     public static func + (lhs: SoyValue, rhs: SoyValue) -> SoyValue {
+        switch (lhs, rhs) {
+        case (.string(let s), _):
+            return .string(s + rhs.coerceToString)
+        case (_, .string(let s)):
+            return .string(lhs.coerceToString + s)
+        default:
+            ()
+        }
+ 
         if let lhn = lhs.coerceToNumber, let rhn = rhs.coerceToNumber {
             switch (lhn, rhn) {
             case (.int(let ln), .int(let rn)):
@@ -25,15 +34,6 @@ extension SoyValue {
             }
         }
 
-        switch (lhs, rhs) {
-        case (.string(let s), _):
-            return .string(s + rhs.coerceToString)
-        case (_, .string(let s)):
-            return .string(lhs.coerceToString + s)
-        case (.array(let a1), .array(let a2)):
-            return .array(a1 + a2)
-        default:
-            return .string( lhs.coerceToString + rhs.coerceToString )
-        }        
+        return .string( lhs.coerceToString + rhs.coerceToString )
     }
 }
