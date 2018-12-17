@@ -13,6 +13,10 @@ public enum SoyValue: Equatable {
     case string(String)
     case array(Array<SoyValue>)
     case map(Dictionary<String, SoyValue>)
+
+    public func notNull() -> Bool {
+        return self != .null
+    }
 }
 
 
