@@ -1,2 +1,2 @@
-# Soy
-Swift runtime for Google Closure Templates
+# SoyKit
+SoyKit runtime library
