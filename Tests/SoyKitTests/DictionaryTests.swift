@@ -1,12 +1,12 @@
 //
 //  DictionaryTests.swift
-//  Soy
+//  SoyKit
 //
 //  Created by Sebestyén Gábor on 2018. 12. 05..
 //
 
 import XCTest
-@testable import Soy
+@testable import SoyKit
 
 class DictionaryTests: XCTestCase {
     func testGetter() {

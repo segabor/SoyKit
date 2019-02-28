@@ -1,12 +1,12 @@
 //
 //  ModOperatorTests.swift
-//  Soy
+//  SoyKit
 //
 //  Created by Sebestyén Gábor on 2018. 12. 01..
 //
 
 import XCTest
-@testable import Soy
+@testable import SoyKit
 
 class ModOperatorTests: XCTestCase {
     func testModuloWithNullValue() {

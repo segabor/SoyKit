@@ -1,5 +1,5 @@
 import XCTest
-@testable import Soy
+@testable import SoyKit
 
 class SanitizerTests: XCTestCase {
     func testTagWhitelisting() {

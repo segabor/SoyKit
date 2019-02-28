@@ -1,12 +1,12 @@
 //
 //  AddOperatorTests.swift
-//  Soy
+//  SoyKit
 //
 //  Created by Sebestyén Gábor on 2018. 11. 26..
 //
 
 import XCTest
-@testable import Soy
+@testable import SoyKit
 
 class MinusOperatorTests: XCTestCase {
     func testSubstractFromNullValue() {
