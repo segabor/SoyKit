@@ -15,7 +15,7 @@ import Glibc
 //
 // Math functions support
 //
-public extension Runtime {
+public struct Math {
 
     static func round(_ value: SoyValue) -> SoyValue {
         switch value {
