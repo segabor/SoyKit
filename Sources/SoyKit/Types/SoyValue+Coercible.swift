@@ -16,6 +16,24 @@ extension SoyValue {
 public enum Number {
     case int(Int)
     case double(Double)
+
+    var intValue: Int {
+        switch(self) {
+        case .int(let i):
+            return i
+        case .double(let d):
+            return Int(d)
+        }
+    }
+
+    var doubleValue: Double {
+        switch(self) {
+        case .int(let i):
+            return Double(i)
+        case .double(let d):
+            return d
+        }
+    }
 }
 
 public protocol Coercible {
