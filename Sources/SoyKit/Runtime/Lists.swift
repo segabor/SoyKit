@@ -3,7 +3,7 @@
 public enum Lists {
     // Returns the length of a list
     // length(list)
-    static func length(_ value: SoyValue) throws -> SoyValue {
+    public static func length(_ value: SoyValue) throws -> SoyValue {
         guard case let .array(list) = value else {
             throw RuntimeError.invalidInput
         }
@@ -13,7 +13,7 @@ public enum Lists {
 
     // Joins two or more lists together
     // concatLists(list, list...)
-    static func concatLists(_ values: SoyValue ...) throws -> SoyValue {
+    public static func concatLists(_ values: SoyValue ...) throws -> SoyValue {
         var result = Array<SoyValue>()
 
         for value in values {
@@ -29,7 +29,7 @@ public enum Lists {
 
     // Checks if the given value is inside the list.
     // listContains(list, value)
-    static func listContains(_ valueList: SoyValue, _ value: SoyValue) throws -> SoyValue {
+    public static func listContains(_ valueList: SoyValue, _ value: SoyValue) throws -> SoyValue {
         guard case let .array(list) = valueList else {
             throw RuntimeError.invalidInput
         }
@@ -39,7 +39,7 @@ public enum Lists {
 
     // Joins the list of strings with a string separator.
     // join(list, separator)
-    static func join(_ valueList: SoyValue, _ separator: SoyValue) throws -> SoyValue {
+    public static func join(_ valueList: SoyValue, _ separator: SoyValue) throws -> SoyValue {
         guard case let .array(list) = valueList else {
             throw RuntimeError.invalidInput
         }
@@ -56,7 +56,7 @@ public enum Lists {
     // [start, start + step, start + 2 * step, ...].
     //
     // range([start,] end[, step])
-    static func range(_ start: SoyValue, _ end: SoyValue, step: SoyValue) throws -> SoyValue {
+    public static func range(_ start: SoyValue, _ end: SoyValue, step: SoyValue) throws -> SoyValue {
         guard var index = start.coerceToNumber?.doubleValue else {
             throw RuntimeError.invalidInput
         }
