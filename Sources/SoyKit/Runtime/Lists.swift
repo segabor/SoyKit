@@ -56,7 +56,7 @@ public enum Lists {
     // [start, start + step, start + 2 * step, ...].
     //
     // range([start,] end[, step])
-    public static func range(_ start: SoyValue, _ end: SoyValue, step: SoyValue) throws -> SoyValue {
+    public static func range(_ start: SoyValue, _ end: SoyValue, _ step: SoyValue) throws -> SoyValue {
         guard var index = start.coerceToNumber?.doubleValue else {
             throw RuntimeError.invalidInput
         }
