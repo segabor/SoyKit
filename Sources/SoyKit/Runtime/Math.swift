@@ -22,7 +22,11 @@ public struct Math {
         case .integer:
             return value
         case .double(let d):
+            #if os(macOS)
             return .double( Darwin.round(d) )
+            #else
+            return .double( Glibc.round(d) )
+            #endif
         default:
             return .double(.nan)
         }
