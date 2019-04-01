@@ -17,7 +17,7 @@ import Glibc
 //
 public struct Math {
 
-    static func round(_ value: SoyValue) -> SoyValue {
+    public static func round(_ value: SoyValue) -> SoyValue {
         switch value {
         case .integer:
             return value
