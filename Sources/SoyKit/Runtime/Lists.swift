@@ -69,7 +69,7 @@ public enum Lists {
 
         var range: [SoyValue] = []
         while index < end {
-            range.append(.double(index))
+            range.append(.integer(Int(index)))
             index += step
         }
 
