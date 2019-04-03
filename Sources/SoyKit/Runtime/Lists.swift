@@ -57,19 +57,19 @@ public enum Lists {
     //
     // range([start,] end[, step])
     public static func range(_ start: SoyValue, _ end: SoyValue, _ step: SoyValue) throws -> SoyValue {
-        guard var index = start.coerceToNumber?.doubleValue else {
+        guard var index = start.coerceToNumber?.intValue else {
             throw RuntimeError.invalidInput
         }
-        guard let end = end.coerceToNumber?.doubleValue else {
+        guard let end = end.coerceToNumber?.intValue else {
             throw RuntimeError.invalidInput
         }
-        guard let step = step.coerceToNumber?.doubleValue, step > 0 else {
+        guard let step = step.coerceToNumber?.intValue, step > 0 else {
             throw RuntimeError.invalidInput
         }
 
         var range: [SoyValue] = []
         while index < end {
-            range.append(.integer(Int(index)))
+            range.append(.integer(index))
             index += step
         }
 
