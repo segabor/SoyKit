@@ -91,9 +91,9 @@ public struct Math {
             #endif
         case .double(let d):
             #if os(macOS)
-            return .double( Darwin.sqrt(d) )
+            return .integer( Int(Darwin.sqrt(d)) )
             #elseif os(Linux)
-            return .double( Glibc.sqrt(d) )
+            return .integer( Int(Glibc.sqrt(d)) )
             #endif
         default:
             throw RuntimeError.invalidInput
