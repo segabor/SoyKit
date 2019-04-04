@@ -24,7 +24,7 @@ public struct Math {
         case .double(let d):
             #if os(macOS)
             return .double( Darwin.round(d) )
-            #else
+            #elseif os(Linux)
             return .double( Glibc.round(d) )
             #endif
         default:
@@ -39,7 +39,7 @@ public struct Math {
         case .double(let d):
             #if os(macOS)
             return .integer( Int(Darwin.ceil(d)) )
-            #else
+            #elseif os(Linux)
             return .integer( Int(Glibc.ceil(d)) )
             #endif
         default:
@@ -54,7 +54,7 @@ public struct Math {
         case .double(let d):
             #if os(macOS)
             return .integer( Int(Darwin.floor(d)) )
-            #else
+            #elseif os(Linux)
             return .integer( Int(Glibc.floor(d)) )
             #endif
         default:
