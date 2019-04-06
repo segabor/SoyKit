@@ -15,7 +15,7 @@ import Glibc
 //
 // Misc functions support
 //
-public struct Util {
+public enum Util {
 
     static public func parseInt(_ value: SoyValue) -> SoyValue {
         guard case let .string(str) = value,
@@ -36,5 +36,12 @@ public struct Util {
 
         return .double(d)
     }
-}
 
+    public static func isNull(_ value: SoyValue) -> SoyValue {
+        return value == .null ? .bool(true) : .bool(false)
+    }
+
+    public static func isNonnull(_ value: SoyValue) -> SoyValue {
+        return value != .null ? .bool(true) : .bool(false)
+    }
+}
