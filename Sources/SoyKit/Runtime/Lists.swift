@@ -76,4 +76,11 @@ public enum Lists {
         return .array(range)
     }
 
+    public static func mapKeys(_ value: SoyValue) throws -> SoyValue {
+        guard case let .map(map) = value else {
+            throw RuntimeError.invalidInput
+        }
+
+        return .array( Array<SoyValue>(map.keys.map{SoyValue.string($0)} ) )
+    }
 }
