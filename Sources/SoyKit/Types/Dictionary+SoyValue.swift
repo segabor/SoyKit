@@ -7,6 +7,9 @@
 
 import Foundation
 
+// TODO: @Deprecated
+// remove this extension and fix tests to use
+// SoyValue's own getter method
 public extension Dictionary where Key == String, Value == SoyValue {
     // designated safe getter for internal evaluations
     func get(_ key: String) -> SoyValue {
