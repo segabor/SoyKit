@@ -1,8 +1,8 @@
 //
-//  Runtime+Math.swift
-//  Soy
+//  Math.swift
+//  SoyKit
 //
-//  Created by Gábr Sebestyén on 209. 02. 25..
+//  Created by Gabor Sebestyen on 2019. 02. 26..
 //
 
 #if os(macOS)
@@ -15,7 +15,7 @@ import Glibc
 //
 // Math functions support
 //
-public struct Math {
+public enum Math {
 
     public static func round(_ value: SoyValue) throws -> SoyValue {
         switch value {
