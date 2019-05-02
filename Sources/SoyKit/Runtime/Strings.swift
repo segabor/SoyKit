@@ -11,7 +11,7 @@ public enum Strings {
     
     // strLen(str)
     // Returns the length of a string.
-    public static func StrLength(_ value: SoyValue) throws -> SoyValue {
+    public static func strLength(_ value: SoyValue) throws -> SoyValue {
         guard case let .string(str) = value else {
             throw RuntimeError.invalidInput
         }
@@ -21,7 +21,7 @@ public enum Strings {
 
     // strContains(str, subStr)
     // Checks whether a string contains a particular substring
-    public static func StrContains(_ value: SoyValue, _ subStringValue: SoyValue) throws -> SoyValue {
+    public static func strContains(_ value: SoyValue, _ subStringValue: SoyValue) throws -> SoyValue {
         guard case let .string(val) = value, case let .string(subStr) = subStringValue else {
             throw RuntimeError.invalidInput
         }
