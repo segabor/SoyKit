@@ -38,7 +38,7 @@ public enum Strings {
         }
 
         if let subRange = str.range(of: subStr) {
-            return .integer( subRange.lowerBound.utf16Offset(in: str) )
+            return .integer( str.distance(from: str.startIndex, to: subRange.lowerBound) )
         }
         return .integer( -1 )
     }
