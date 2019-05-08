@@ -22,10 +22,24 @@ public enum Strings {
     // strContains(str, subStr)
     // Checks whether a string contains a particular substring
     public static func strContains(_ value: SoyValue, _ subStringValue: SoyValue) throws -> SoyValue {
-        guard case let .string(val) = value, case let .string(subStr) = subStringValue else {
+        guard case let .string(str) = value, case let .string(subStr) = subStringValue else {
             throw RuntimeError.invalidInput
         }
 
-        return .bool( val.contains(subStr) )
+        return .bool( str.contains(subStr) )
+    }
+
+    // strIndexOf(str, subStr)
+    // Returns the first occurrence of substr within str,
+    // or -1. Case-sensitive, 0-based index.
+    public static func strIndexOf(_ value: SoyValue, _ subStringValue: SoyValue) throws -> SoyValue {
+        guard case let .string(str) = value, case let .string(subStr) = subStringValue else {
+            throw RuntimeError.invalidInput
+        }
+
+        if let subRange = str.range(of: subStr) {
+            return .integer( subRange.lowerBound.utf16Offset(in: str) )
+        }
+        return .integer( -1 )
     }
 }
