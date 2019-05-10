@@ -68,4 +68,32 @@ public enum Strings {
 
         return .string( String( str[lower..<upper] ))
     }
+
+    // strToAsciiUpperCase(str)
+    // Returns the uppercase representation of the given string.
+    //
+    // NOTE: This function doesn't consider locales when tranforming
+    //   the string and it only transforms ASCII characters a-z.
+    //   Do not use it to uppercase string that are localized and/or UNICODE.
+    public static func strToAsciiUpperCase(_ value: SoyValue) throws -> SoyValue {
+        guard case let .string(str) = value else {
+            throw RuntimeError.invalidInput
+        }
+
+        return .string( str.uppercased() )
+    }
+
+    // strToAsciiLowerCase(str)
+    // Returns the lowercase representation of the given string.
+    //
+    // NOTE: This function doesn't consider locales when tranforming
+    //   the string and it only transforms ASCII characters a-z.
+    //   Do not use it to uppercase string that are localized and/or UNICODE.
+    public static func strToAsciiLowerCase(_ value: SoyValue) throws -> SoyValue {
+        guard case let .string(str) = value else {
+            throw RuntimeError.invalidInput
+        }
+
+        return .string( str.lowercased() )
+    }
 }
