@@ -65,6 +65,8 @@ extension SoyValue: Coercible {
             return a.map{$0.coerceToString}.joined(separator: ",")
         case .map:
             return "[object Object]"
+        case .sanitized(_, let content):
+            return content
         }
     }
 
@@ -91,6 +93,8 @@ extension SoyValue: Coercible {
             return a.isEmpty ? .int(0) : nil
         case .map:
             return nil
+        case .sanitized(_, let content):
+            return SoyValue.string(content).coerceToNumber
         }
     }
 
@@ -115,6 +119,8 @@ extension SoyValue: Coercible {
             return !d.isZero
         case .string(let s):
             return !s.isEmpty
+        case .sanitized(_, let content):
+            return !content.isEmpty
         default:
             return true
         }
