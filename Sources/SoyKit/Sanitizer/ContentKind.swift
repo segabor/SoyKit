@@ -33,16 +33,4 @@ public enum ContentKind {
 
     /** A CSS3 declaration, property, value or group of semicolon separated declarations. */
     case CSS
-
-    /**
-     * Unsanitized plain-text content.
-     *
-     * <p>This is effectively the "null" entry of this enum, and is sometimes used to explicitly
-     * mark content that should never be used unescaped. Since any string is safe to use as text,
-     * being of ContentKind.TEXT makes no guarantees about its safety in any other context such as
-     * HTML.
-     *
-     * <p>In the soy type system, {@code TEXT} is equivalent to the string type.
-     */
-    case TEXT
 }
