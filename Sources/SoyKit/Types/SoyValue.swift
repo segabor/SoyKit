@@ -14,6 +14,8 @@ public enum SoyValue: Equatable {
     case array(Array<SoyValue>)
     case map(Dictionary<String, SoyValue>)
 
+    case sanitized(ContentKind, String)
+
     public func notNull() -> Bool {
         return self != .null
     }
