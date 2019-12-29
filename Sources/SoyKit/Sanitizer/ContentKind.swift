@@ -1,6 +1,6 @@
 //
 //  ContentKind.swift
-//  Soy
+//  SoyKit
 //
 //  Created by Gábor Sebestyén on 2018. 03. 15..
 //

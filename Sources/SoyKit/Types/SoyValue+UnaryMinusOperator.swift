@@ -1,6 +1,6 @@
 //
 //  SoyValue+UnaryMinusOperator.swift
-//  Soy
+//  SoyKit
 //
 //  Created by Sebestyén Gábor on 2018. 12. 01..
 //

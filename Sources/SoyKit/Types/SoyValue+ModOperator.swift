@@ -1,6 +1,6 @@
 //
 //  SoyValue+ModOperator.swift
-//  Soy
+//  SoyKit
 //
 //  Created by Sebestyén Gábor on 2018.2. 01..
 //

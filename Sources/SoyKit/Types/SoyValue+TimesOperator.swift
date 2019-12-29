@@ -1,6 +1,6 @@
 //
 //  SoyValue+TimesOperator.swift
-//  Soy
+//  SoyKit
 //
 //  Created by Sebestyén Gábor on 2018. 11. 28..
 //
